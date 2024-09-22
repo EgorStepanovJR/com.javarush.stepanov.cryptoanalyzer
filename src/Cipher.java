@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Cipher {
 
     public static final char[] ALPHABET = Alphabet.ALPHABET_RU;
@@ -5,7 +7,13 @@ public class Cipher {
     public static String encrypt(String text, int shift) {
         StringBuilder encryptedText = new StringBuilder();
 
+        ArrayList<Character> textChars = new ArrayList<>();
         for (char c : text.toCharArray()) {
+            textChars.add(c);
+        }
+
+
+        for (char c : textChars) {
             int index = findIndex(c);
 
             if (index != -1) {
@@ -21,7 +29,12 @@ public class Cipher {
     public static String decrypt(String text, int shift) {
         StringBuilder decryptedText = new StringBuilder();
 
+        ArrayList<Character> textChars = new ArrayList<>();
         for (char c : text.toCharArray()) {
+            textChars.add(c);
+        }
+
+        for (char c : textChars) {
             int index = findIndex(c);
 
             if (index != -1) {

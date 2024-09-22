@@ -4,94 +4,87 @@ import java.util.*;
 public class MainApp {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
+        boolean сycle = true;
 
-        System.out.println("Выберите режим работы: " +
-                "\n 1 - Шифрование текста из файла." +
-                "\n 2 - Расшифровка текста из файла с помощью ключа." +
-                "\n 3 - Расшифровка методом brute force." +
-                "\n 4 - Расшифровка методом статистического анализа." +
-                "\n 5 - Закрыть программу.");
+        System.out.println(Constant.Annotation);
 
-        switch (Integer.parseInt(console.nextLine())) {
+        while (сycle == true) {
+            System.out.println(Constant.Menu);
 
-            case 1:
-                System.out.println("Введите имя файла с текстом для шифрования: ");
-                String inputFilename = console.nextLine();
 
-                try {
-                    String text = FileManager.readFile(inputFilename);
+            try {
+                switch (Integer.parseInt(console.nextLine())) {
 
-                    System.out.println("Введите ключ шифрования: ");
-                    int shift = Integer.parseInt(console.nextLine());
-                    String encryptedText = Cipher.encrypt(text, shift);
+                    case 1:
+                        System.out.println(Constant.getPathEncrupt);
+                        String inputFilename = console.nextLine();
 
-                    System.out.println("Введите имя файла для сохранения зашифрованного текста: ");
-                    String outputFilename = console.nextLine();
-                    FileManager.writeFile(outputFilename, encryptedText);
+                        try {
+                            String text = FileManager.readFile(inputFilename);
 
-                    System.out.println("Текст зашифрован и сохранен в " + outputFilename);
-                } catch (IOException e) {
-                    System.out.println("Ошибка чтения или записи файла: " + e.getMessage());
-                } break;
+                            System.out.println(Constant.getKey);
+                            int shift = Integer.parseInt(console.nextLine());
+                            String encryptedText = Cipher.encrypt(text, shift);
 
-            case 2:
-                System.out.println("Введите имя файла с текстом для расшифровки: ");
-                String decryptFilename = console.nextLine();
+                            System.out.println(Constant.getNewFileName);
+                            String outputFilename = console.nextLine();
+                            FileManager.writeFile(outputFilename, encryptedText);
 
-                try {
-                    String text = FileManager.readFile(decryptFilename);
+                            System.out.println(Constant.textEncrypt + outputFilename);
+                        } catch (IOException e) {
+                            System.out.println(Constant.ExIO + e.getMessage());
+                        } break;
 
-                    System.out.println("Введите ключ шифрования: ");
-                    int key = Integer.parseInt(console.nextLine());
+                    case 2:
+                        System.out.println(Constant.getPathDecrypt);
+                        String decryptFilename = console.nextLine();
 
-                    String decrypt = Cipher.decrypt(text, key);
+                        try {
+                            String text = FileManager.readFile(decryptFilename);
 
-                    System.out.println("Введите имя файла для сохранения расшифрованного текста: ");
-                    String outputFilename = console.nextLine();
-                    FileManager.writeFile(outputFilename, decrypt);
+                            System.out.println(Constant.getKey);
+                            int key = Integer.parseInt(console.nextLine());
 
-                    System.out.println("Текст расшифрован и сохранен в " + outputFilename);
-                } catch (IOException e) {
-                    System.out.println("Ошибка чтения или записи файла: " + e.getMessage());
-                } break;
+                            String decrypt = Cipher.decrypt(text, key);
 
-            case 3:
-                System.out.println("Введите имя файла с текстом для расшифровки: ");
-                String inputFilenameBrute = console.nextLine();
+                            System.out.println(Constant.getNewFileName);
+                            String outputFilename = console.nextLine();
+                            FileManager.writeFile(outputFilename, decrypt);
 
-                try {
-                    String text = FileManager.readFile(inputFilenameBrute);
+                            System.out.println(Constant.textDecrypt + outputFilename);
+                        } catch (IOException e) {
+                            System.out.println(Constant.ExIO + e.getMessage());
+                        } break;
 
-                    System.out.println("Расшифровка brute force: ");
-                    String bruteForceResult = BruteForce.decrypt(text);
+                    case 3:
+                        System.out.println(Constant.getPathDecrypt);
+                        String inputFilenameBrute = console.nextLine();
 
-                    System.out.println("Расшифрованные варианты: \n" + bruteForceResult);
-                } catch (IOException e) {
-                    System.out.println("Ошибка чтения файла: " + e.getMessage());
-                } break;
+                        try {
+                            String text = FileManager.readFile(inputFilenameBrute);
+                            String FileName = inputFilenameBrute;
 
-            case 4:
-                System.out.println("Введите имя файла с текстом для расшифровки: ");
-                String inputFilenameStatic = console.nextLine();
+                            System.out.println(Constant.brut);
+                            String bruteForceResult = BruteForce.decrypt(text, FileName);
+                        } catch (IOException e) {
+                            System.out.println(Constant.ExIO + e.getMessage());
 
-                try {
-                    String text = FileManager.readFile(inputFilenameStatic);
+                        } break;
 
-                    System.out.println("Расшифровка статическим анализом: ");
-                    String staticAnalysisResult = StatisticalAnalyzer.decrypt(text);
+                    case 4:
+                        System.out.println(Constant.statistical);
+                        break;
 
-                    System.out.println("Расшифрованные варианты: \n" + staticAnalysisResult);
-                } catch (IOException e) {
-                    System.out.println("Ошибка чтения файла: " + e.getMessage());
-                } break;
-
-            case 5:
-                System.out.println("Программа завершена.");
-                break;
-            default:
-                System.out.println("Неверный выбор. Пожалуйста, выберите число от 1 до 5.");
+                    case 5:
+                        System.out.println(Constant.close);
+                        сycle = false;
+                        break;
+                    default:
+                        System.out.println(Constant.ExMenuRestriction);
+                }
+            } catch (Exception e) {
+                System.out.println(Constant.ExNotMembers);
+            }
         }
-
-        console.close();
     }
 }

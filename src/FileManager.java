@@ -6,9 +6,8 @@ public class FileManager {
         StringBuilder text = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
-            String line = reader.readLine();
-
-            while (line != null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 text.append(line).append("\n");
             }
         }

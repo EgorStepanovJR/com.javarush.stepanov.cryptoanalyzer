@@ -1,8 +1,8 @@
 public class StatisticalAnalyzer {
 
     public static String decrypt(String text) {
-        // Реализация статического анализа.
+        // Реализация статического анализа в разработке.
 
-        return "Реализации статического анализа: \n" + Cipher.decrypt(text, 3);
+        return String.valueOf(0);
     }
 }
